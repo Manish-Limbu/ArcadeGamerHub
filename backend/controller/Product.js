@@ -163,3 +163,91 @@ export const getSingleProduct = (req, res) => {
     });
   });
 };
+
+export const updateProduct = (req, res) => {
+  const productId = req.params.id;
+  const {
+    category_id,
+    sku,
+    name,
+    description,
+    base_price,
+    discount_price,
+    stock_quantity,
+    image_url,
+    isdigital
+  } = req.body;
+
+  const q = `
+    UPDATE products 
+    SET category_id = ?, sku = ?, name = ?, description = ?, 
+        base_price = ?, discount_price = ?, stock_quantity = ?, 
+        image_url = ?, isdigital = ? 
+    WHERE product_id = ?
+  `;
+
+  const values = [
+    category_id,
+    sku,
+    name,
+    description,
+    base_price,
+    discount_price,
+    stock_quantity,
+    image_url,
+    isdigital ? 1 : 0,
+    productId
+  ];
+
+  db.query(q, values, (err, result) => {
+    if (err) {
+      console.error("Database Error:", err.message);
+      return res.status(500).json({
+        success: false,
+        message: "Failed to update product",
+        error: err.message
+      });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found"
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Product updated successfully"
+    });
+  });
+};
+
+// Delete a product
+export const deleteProduct = (req, res) => {
+  const productId = req.params.id;
+  const q = "DELETE FROM products WHERE product_id = ?";
+
+  db.query(q, [productId], (err, result) => {
+    if (err) {
+      console.error("Database Error:", err.message);
+      return res.status(500).json({
+        success: false,
+        message: "Failed to delete product",
+        error: err.message
+      });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found"
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Product deleted successfully"
+    });
+  });
+};
