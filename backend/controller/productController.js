@@ -171,7 +171,6 @@ export const updateProduct = (req, res) => {
   });
 };
 
-// Delete a product
 export const deleteProduct = (req, res) => {
   const productId = req.params.id;
   const q = "DELETE FROM products WHERE product_id = ?";

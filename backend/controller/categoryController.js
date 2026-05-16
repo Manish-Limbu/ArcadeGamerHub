@@ -53,12 +53,10 @@ export const getCategory = (req, res) => {
   });
 };
 
-// Update an existing category
 export const updateCategory = (req, res) => {
   const categoryId = req.params.id;
   const { name, description } = req.body;
 
-  // Validation to ensure name is present
   if (!name) {
     return res.status(400).json({
       success: false,
@@ -66,7 +64,6 @@ export const updateCategory = (req, res) => {
     });
   }
 
-  // Assuming your primary key column is named 'id' based on previous queries
   const q = "UPDATE categories SET name = ?, description = ? WHERE id = ?";
 
   db.query(q, [name, description || null, categoryId], (err, result) => {
@@ -79,7 +76,6 @@ export const updateCategory = (req, res) => {
       });
     }
 
-    // Check if the category ID actually existed
     if (result.affectedRows === 0) {
       return res.status(404).json({
         success: false,
