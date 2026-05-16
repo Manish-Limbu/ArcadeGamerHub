@@ -123,14 +123,14 @@ export const updateProduct = (req, res) => {
     discount_price,
     stock_quantity,
     image_url,
-    isdigital
+    is_digital
   } = req.body;
 
   const q = `
     UPDATE products 
     SET category_id = ?, sku = ?, name = ?, description = ?, 
         base_price = ?, discount_price = ?, stock_quantity = ?, 
-        image_url = ?, isdigital = ? 
+        image_url = ?, is_digital = ? 
     WHERE product_id = ?
   `;
 
@@ -143,7 +143,7 @@ export const updateProduct = (req, res) => {
     discount_price,
     stock_quantity,
     image_url,
-    isdigital ? 1 : 0,
+    is_digital,
     productId
   ];
 

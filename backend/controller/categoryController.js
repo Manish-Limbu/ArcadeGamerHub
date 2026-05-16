@@ -64,7 +64,7 @@ export const updateCategory = (req, res) => {
     });
   }
 
-  const q = "UPDATE categories SET name = ?, description = ? WHERE id = ?";
+  const q = "UPDATE categories SET name = ?, description = ? WHERE category_id = ?";
 
   db.query(q, [name, description || null, categoryId], (err, result) => {
     if (err) {
