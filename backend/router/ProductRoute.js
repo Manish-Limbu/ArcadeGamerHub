@@ -1,10 +1,8 @@
 import express from "express";
-import { addCategory, addProduct, deleteProduct, getAllProducts, getCategory, getSingleProduct, updateProduct } from "../controller/Product.js";
+import { addProduct, deleteProduct, getAllProducts, getSingleProduct, updateProduct } from "../controller/productController.js";
 
 const productRoute = express.Router();
 
-productRoute.post("/addCategory", addCategory);
-productRoute.get("/getCategory", getCategory);
 productRoute.post("/addProduct", addProduct);
 productRoute.get("/getAllProducts", getAllProducts);
 productRoute.get("/getSingleProduct/:id", getSingleProduct);
